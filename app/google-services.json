@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "57584226003",
+    "project_id": "mynoteapp-e84b8",
+    "storage_bucket": "mynoteapp-e84b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57584226003:android:6e8f02a9881c97ec650e26",
+        "android_client_info": {
+          "package_name": "com.example.notecloud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57584226003-br50duvufhsphc5757sdjsc8hhinr68r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAHOJy89Ky2HAGnF-VX6LGIU0WpQsFXHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57584226003-br50duvufhsphc5757sdjsc8hhinr68r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
