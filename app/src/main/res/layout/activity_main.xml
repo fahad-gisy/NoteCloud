@@ -3,42 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#2D3E40"
+    android:background="@color/darkPink"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/userID"
+
+    <FrameLayout
+        android:id="@+id/Fcontainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+          app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="الايدي"
-        android:textSize="30dp"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        app:reverseLayout="false"
+        tools:listitem="@layout/customnotelayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/emailID"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addnoteBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="الايميل"
-        android:layout_marginTop="12dp"
-        android:textSize="30dp"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userID" />
-
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="خروج"
+        android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailID" />
+        android:layout_margin="12dp"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

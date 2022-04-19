@@ -2,23 +2,52 @@ package com.example.notecloud
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import com.google.firebase.auth.FirebaseAuth
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
+    var recycleNote:RecyclerView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val userId = intent.getStringExtra("user_id")
-        val emailId = intent.getStringExtra("email_id")
-        val logoutButton = findViewById<Button>(R.id.logout)
-
-        findViewById<TextView>(R.id.userID).text = userId
-        findViewById<TextView>(R.id.emailID).text = emailId
-
-        logoutButton.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
+        connectVs()
+        userNoteArray()
+       val addNoteBtn = findViewById<FloatingActionButton>(R.id.addnoteBTN)
+        addNoteBtn.setOnClickListener {
+            val fm = supportFragmentManager
+            val fragmentTrans = fm.beginTransaction()
+            fragmentTrans.replace(R.id.Fcontainer,Addnotefrag()).commit()
         }
+    }
+
+    private fun connectVs() {
+       recycleNote = findViewById(R.id.recycleViewNote)
+    }
+
+    private fun userNoteArray() {
+       val userNoteArray = ArrayList<NoteData>()
+        val customAdaptor = CustomAdaptor(userNoteArray,this)
+        userNoteArray.add(NoteData("title","this how i want my note look like",Date()))
+        userNoteArray.add(NoteData("title","this how i want my note look like",Date()))
+        userNoteArray.add(NoteData("title","this how i want my note look like",Date()))
+        userNoteArray.add(NoteData("title","this how i want my note look like",Date()))
+        userNoteArray.add(NoteData("title","this how i want my note look like",Date()))
+        recycleNote?.adapter = customAdaptor
+
+
+//        if (intent.getStringExtra("title") !=null){
+//            val title = intent.getStringExtra("title")
+//            val subTitle = intent.getStringExtra("subtitle")
+//            val desc = intent.getStringExtra("desc")
+//
+//            val newStory = NoteData(title!!,desc!!,Date())
+//
+//            userNoteArray.add(newStory)
+//
+//            customAdaptor.notifyDataSetChanged()
+//        }
+
     }
 }

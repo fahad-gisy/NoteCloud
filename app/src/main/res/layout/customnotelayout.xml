@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+   >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/noteBackColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/lightGreen"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/RecycleTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/app_name"
+                android:textSize="18sp"
+                android:maxLines="1"
+                />
+
+            <TextView
+                android:id="@+id/RecycleNote"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:text="this is note here p[askdpoakspodkpoaksdpoaposkdpoakdopkaopsdk[pa][][qwore[pqkiopfjkjisdkf[plap[djaiokshdujas[pfl][pasofjaioksf][pasf;loahjsifhiuaqwgryuiqgyuwedgqoif[sdl"
+                android:textSize="16sp"
+
+                />
+
+
+            <TextView
+                android:id="@+id/RecycleDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white"
+                android:maxLines="1"
+                android:text="10 ramadan 1443"
+                android:textSize="13sp"
+
+                />
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

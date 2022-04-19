@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkPink"
+    tools:context=".Addnotefrag">
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="21dp"
+        android:background="@color/pink"
+        android:hint="  العنوان"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/note"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_margin="21dp"
+        android:background="@color/pink"
+        android:hint="اكتب مذكرتك هنا"
+        android:gravity="start"
+        android:padding="12dp"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingSaveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="21dp"
+        android:src="@drawable/ic_baseline_check_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ru.katso.livebutton.LiveButton
+        android:id="@+id/SaveBTN"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:text="حفظ !!"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        app:backgroundColor="@color/lightGreen"
+        app:corners="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/note"
+        app:normalHeight="6dp"
+        app:pressedHeight="2dp"
+        app:shadowColor="#b16262" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
