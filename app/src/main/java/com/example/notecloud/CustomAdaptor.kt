@@ -1,5 +1,6 @@
 package com.example.notecloud
 
+import android.R.attr
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -11,8 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
+import android.R.attr.data
 
-class CustomAdaptor(val noteArrayList: ArrayList<NoteData>,context: Context):RecyclerView.Adapter<CustomAdaptor.DataHolder>() {
+
+
+
+class CustomAdaptor(val noteArrayList: ArrayList<NoteData>, context: Context):RecyclerView.Adapter<CustomAdaptor.DataHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataHolder {
         return DataHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.customnotelayout, parent, false)
