@@ -1,17 +1,19 @@
 package com.example.notecloud
 
-import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import ru.katso.livebutton.LiveButton
+import java.lang.NullPointerException
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,7 +24,10 @@ var floatBtn:FloatingActionButton? = null
 var titleEd:EditText? = null
 var wholeNote:EditText? = null
 var liveBtn:LiveButton? = null
-var database:FirebaseDatabase? = null
+//var database:FirebaseDatabase? = null
+var maxid:Long = 0
+private val databaseRef = Firebase.database.reference.child("users")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -39,8 +44,25 @@ var database:FirebaseDatabase? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         connectVs(view)
-        saveToDatabase()
-    }
+        val user = FirebaseAuth.getInstance().currentUser
+        val id = user?.uid
+        try {
+            saveToDatabase(id)
+        } catch (e: NullPointerException){
+
+        }
+        databaseRef.child(id!!).child("notes").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists())  // شرط يتأكد من عدم تكرار النوت id عن طريق حساب عدد النوتس الموجودة
+                    maxid = (dataSnapshot.childrenCount)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("error", "loadPost:onCancelled", databaseError.toException())
+            }
+        }) // دالة تقرأ البيانات من الفايربيس بالتحديد داخل المسار child("notes") رابط الفيديو:
+    }      // https://www.youtube.com/watch?v=r-g2R_COMqo
 
 
 
@@ -50,16 +72,17 @@ var database:FirebaseDatabase? = null
       wholeNote = view.findViewById(R.id.note)
       liveBtn = view.findViewById(R.id.SaveBTN)
     }
-          //هنا حاولت ارفع للداتا بيس لكن م ترتفع معي في غلط في الموضوع
-    private fun saveToDatabase() {
-        database = FirebaseDatabase.getInstance()
-        val mRef:DatabaseReference = database!!.reference
-        floatBtn?.setOnClickListener {
 
+    private fun saveToDatabase(id:String?) {
+//        val mRef:DatabaseReference = database!!.reference
+            val notesRef= databaseRef.child(id!!).child("notes")
+        floatBtn?.setOnClickListener {
             val title = titleEd?.text.toString()
             val notes = wholeNote?.text.toString()
-            val noteData = NoteData(title,notes)
-            mRef.child("notes").setValue(noteData)
+            val noteData = NoteData(title,notes, Date()) //Date = Calendar.getInstance().time
+            val key = maxid+1 //ياخد عدد النوت الموجودة من دالة الوفرايد ويضيف عليه 1 توضيح: اذا كان عدد النوت في الداتابيس 2 يصبح رقم النوت التالية (1+2) اي 3 وهكذا
+            notesRef.child("note$key").setValue(noteData) //  دالة تحفظ بيانات النوت بالفايربيس وكل نوت لها id توضيح:(note1/ note2/ note3)
+//            noteRef.child("notes").setValue(noteData)
         }
     }
 

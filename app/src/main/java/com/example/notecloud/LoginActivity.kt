@@ -1,24 +1,19 @@
 package com.example.notecloud
 
 import android.content.Intent
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.method.TransformationMethod
-import android.transition.AutoTransition
-import android.transition.Transition
-import android.transition.TransitionManager
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import ru.katso.livebutton.LiveButton
-
+private val databaseRef = Firebase.database.reference.child("users")
 var registerCard:CardView? = null
 var linearLayoutRegister:LinearLayout? = null
 var linearLayoutLogin:LinearLayout? = null
@@ -103,8 +98,10 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun registerUser() {
+         var fName = findViewById<EditText>(R.id.usernameED).text.toString()
          var email = findViewById<EditText>(R.id.EmailED).text.toString()
          var passWord = findViewById<EditText>(R.id.passwordED).text.toString()
+         val user = User(fName, email) // كلاس تاخذ بيانات اليوزر مثل:(الاسم الاول/ الاسم الاخير /تاريخ الميلاد /..الخ) | ممكن نستغني عن الكلاس ونضيف المعلومات بشكل فردي
         if (email.isNotEmpty() && passWord.isNotEmpty()){ // انشاء تسجيل دخول اميل و باسورد!! في فاير بيس
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,passWord)
                 .addOnCompleteListener { task ->
@@ -112,8 +109,9 @@ class LoginActivity : AppCompatActivity() {
                              val fireBaseUser : FirebaseUser = task.result!!.user!!
                              Toast.makeText(this,"تم التسجيل بنجاح",Toast.LENGTH_SHORT).show()
                              var intent = Intent(this,MainActivity::class.java)
-                             intent.putExtra("user_id",fireBaseUser.uid)
+//                             intent.putExtra("user_id",fireBaseUser.uid)
                              intent.putExtra("email_id",email)
+                             saveUser(user, fireBaseUser.uid) // دالة تحفظ بيانات اليوزر بال id في فايربيس
                              startActivity(intent)
                              finish()
                          }else{
@@ -123,6 +121,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun saveUser(user: User, id: String) {
+        val userRef = databaseRef.child(id)
+        userRef.setValue(user)
+    }
 
 
 
